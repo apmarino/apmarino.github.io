@@ -336,9 +336,14 @@ var drawACard = function (array) { //this function needs an empty array arg to p
   console.log(cardsAlreadyDrawn);
 };
 
-var playerHandValue = function(){
-  
+var getHandValue = function(array){
+  var total = 0;
+  for(var i = 0; i<array.length; i++){
+    total += array[i].value;
+  };
+  return total;
 }
+
 
 // eval(playerCardValues.join('+'))
 // This adds the card values!
