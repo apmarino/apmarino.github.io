@@ -1,6 +1,4 @@
 
-var j =10;
-var q = 10;
 console.log("LINKED UP!")
 
 var newDeck ={
@@ -318,8 +316,29 @@ var newDeck ={
     "imgUrl": ""
   },
 };
-console.log(newDeck["35"].name, "of", newDeck["35"].suit);
 
-var drawACard = function () {
+playerHand = [];
+computerHand = [];
+cardsAlreadyDrawn = [];
+
+var drawACard = function (array) { //this function needs an empty array arg to push to(player hand and computer hand)
+  var randomNum = Math.floor(Math.random() * 52);
+  // debugger;
+  if (cardsAlreadyDrawn.indexOf(randomNum) === -1) { //prevents drawing same card
+    array.push(newDeck[randomNum.toString()]);
+    cardsAlreadyDrawn.push(randomNum);
+  } else{
+    var newRandomNum = Math.floor(Math.random() * 52);
+    array.push(newDeck[newRandomNum.toString()]);
+    cardsAlreadyDrawn.push(newRandomNum); 
+  };
+  console.log(array);
+  console.log(cardsAlreadyDrawn);
+};
+
+var playerHandValue = function(){
   
 }
+
+// eval(playerCardValues.join('+'))
+// This adds the card values!
