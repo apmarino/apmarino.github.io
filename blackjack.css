@@ -4,3 +4,15 @@ h1{
 .stay{
   display: none;
 }
+.pCards{
+  height: 180px;
+  width: 125px;
+}
+.cCards{
+ height: 180px;
+ width: 125px; 
+}
+.cCard0{
+  /*display: none;*/
+  background-image: "cards/black_joker.png"
+}

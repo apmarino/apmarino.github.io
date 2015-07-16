@@ -356,10 +356,18 @@ var getHandValue = function(array){ // array needs to be playerHand or computerH
 $(document).ready(function(){
 
 var displayPlayerCards = function(element, index){
-  $('.player-value').append(element.name + " of " + element.suit +", ");
+  var $img = $('<img>');
+  $img.attr("src", element.imgUrl);
+  $img.addClass("pCards pCard"+index);
+  $('.player-hand').append($img);
+  // $('.player-value').append(element.name + " of " + element.suit +", ");
 };
 var displayDealerCards = function(element, index){
-  $('.computer-value').append(element.name + " of " + element.suit +", ");
+  var $img = $('<img>');
+  $img.attr("src", element.imgUrl);
+  $img.addClass("cCards cCard"+index);
+  $('.computer-hand').append($img);
+  // $('.computer-value').append(element.name + " of " + element.suit +", ");
 };
 
 $('.bet').on('click', function(){
@@ -416,6 +424,7 @@ var startClick = function(){
     $('.player-value').append(" Total:" + playerValue);
     // $('.player-value').text(playerValue);
     computerHand.forEach(displayDealerCards);
+    $('.cCard0').attr("src", "cards/black_joker.png");
     $('.computer-value').append(" Total:" + computerValue);
     // $('.computer-value').text(computerValue);
    
