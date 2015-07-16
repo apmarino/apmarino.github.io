@@ -424,12 +424,12 @@ var startClick = function(){
     var computerValue = getHandValue(computerHand);
    $('.pCards').remove();
     playerHand.forEach(displayPlayerCards);
-    $('.player-value').append(" Total:" + playerValue);
+    // $('.player-value').append(" Total:" + playerValue);
 
     $('.cCards').remove();
     computerHand.forEach(displayDealerCards);
     $('.cCard0').attr("src", "cards/black_joker.png");
-    $('.computer-value').append(" Total:" + computerValue);
+    // $('.computer-value').append(" Total:" + computerValue);
    
     $('.start').off('click').on('click', hitClick).text("hit");
   };
@@ -439,10 +439,10 @@ var hitClick = function(){
   drawACard(playerHand);
   var playerValue = getHandValue(playerHand);
   console.log(playerValue);
-  $('.player-value').text("");
+  // $('.player-value').text("");
   $('.pCards').remove();
   playerHand.forEach(displayPlayerCards);
-  $('.player-value').append(" Total:" + playerValue);
+  // $('.player-value').append(" Total:" + playerValue);
   if (playerValue > 21) {
     whoWon();
   } else if (playerValue === 21) {
@@ -492,10 +492,10 @@ $('.stay').on('click', function(){
     } else{
       drawACard(computerHand);
       computerValue = getHandValue(computerHand);
-      $('.computer-value').text("");
+      // $('.computer-value').text("");
       $('.cCards').remove();
       computerHand.forEach(displayDealerCards);
-      $('.computer-value').append(" Total:" + computerValue);
+      // $('.computer-value').append(" Total:" + computerValue);
       console.log(computerValue);
       if (computerValue>21) {
         whoWon();
