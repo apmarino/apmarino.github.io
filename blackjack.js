@@ -373,9 +373,13 @@ var displayDealerCards = function(element, index){
 $('.bet').on('click', function(){
   var bankTotal = parseInt($('.bank').text());
   var bet = parseInt($('.input-bet').val());
+  if (bet > bankTotal) {
+    alert("Your bet must be lower than your Bank.");
+  } else{
   console.log("bankTotal: ", bankTotal, "bet: ", bet)
   $('.bank').text(bankTotal - bet);
   $('.current-bet').text(bet);
+  };
 });
 
 var playerWins = function(){
@@ -474,7 +478,7 @@ var whoWon = function(){
     playerWins();
     alert("Black Jack!");
   };
-  $('.start').off('click').on('click', startClick).text('Start');
+  $('.start').off('click').on('click', startClick).text('Deal');
   $('.stay').toggle();
   $('.player-value').text("");
   $('.computer-value').text("");
