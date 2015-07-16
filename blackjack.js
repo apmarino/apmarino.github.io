@@ -317,9 +317,10 @@ var newDeck ={
   },
 };
 
-playerHand = [];
-computerHand = [];
-cardsAlreadyDrawn = [];
+var playerHand = [];
+var computerHand = [];
+var cardsAlreadyDrawn = [];
+var gameOver = false;
 
 var drawACard = function (array){ //this function needs an empty array arg to push to(player hand and computer hand)
   var randomNum = Math.floor(Math.random() * 52);
@@ -358,36 +359,56 @@ var displayDealerCards = function(element, index){
 $('.bet').on('click', function(){
   var bankTotal = parseInt($('.bank').text());
   var bet = parseInt($('.input-bet').val());
-  console.log("bankTtotal: ", bankTotal, "bet: ", bet)
+  console.log("bankTotal: ", bankTotal, "bet: ", bet)
   $('.bank').text(bankTotal - bet);
-  $('.current-bet').text(bet)
+  $('.current-bet').text(bet);
 });
 
+var playerWins = function(){
+ var $currentBet = parseInt($('.current-bet').text());
+ var $bankTotal = parseInt($('.bank').text());
+ $('.bank').text($bankTotal + 2*$currentBet);
+ $('.current-bet').text("");
+ if (parseInt($('.bank').text()) <= 0) {
+  gameOver = true;
+ };
+};
 
+var dealerWins = function(){
+  $('.current-bet').text("");
+  console.log('dealer won');
+}
+
+var newDeal = function(){
+  cardsAlreadyDrawn = [];
+  drawACard(playerHand);
+  drawACard(playerHand);
+  drawACard(computerHand);
+  drawACard(computerHand);
+};
 
 var startClick = function(){
-  drawACard(playerHand);
-  drawACard(playerHand);
-  drawACard(computerHand);
-  drawACard(computerHand);
-  //drawing cards for plater and computer
-  $('.stay').toggle();
+  if ($('.current-bet').text().length <= 0 || typeof(parseInt($('.current-bet').text())) !== "number") {
+    alert("Input a number!");
+  } else{
   
-  var playerValue = getHandValue(playerHand);
-  var computerValue = getHandValue(computerHand);
- 
-  playerHand.forEach(displayPlayerCards);
-  $('.player-value').append(" Total:" + playerValue);
-  // $('.player-value').text(playerValue);
-  computerHand.forEach(displayDealerCards);
-  $('.computer-value').append(" Total:" + computerValue);
-  // $('.computer-value').text(computerValue);
- 
-  $('.start').off('click').on('click', hitClick).text("hit");
-  if (playerValue === 21) {
-    alert("BLACKJACK!");
-    };
-}
+    newDeal();
+    //drawing cards for plater and computer
+    $('.stay').toggle();
+    
+    var playerValue = getHandValue(playerHand);
+    var computerValue = getHandValue(computerHand);
+   
+    playerHand.forEach(displayPlayerCards);
+    $('.player-value').append(" Total:" + playerValue);
+    // $('.player-value').text(playerValue);
+    computerHand.forEach(displayDealerCards);
+    $('.computer-value').append(" Total:" + computerValue);
+    // $('.computer-value').text(computerValue);
+   
+    $('.start').off('click').on('click', hitClick).text("hit");
+  };
+};
   
 var hitClick = function(){
   drawACard(playerHand);
@@ -397,28 +418,44 @@ var hitClick = function(){
   playerHand.forEach(displayPlayerCards);
   $('.player-value').append(" Total:" + playerValue);
   if (playerValue > 21) {
-    alert("BUST");
-    return;
+    whoWon();
   } else if (playerValue === 21) {
-    alert("BLACKJACK!");
-  } 
+    whoWon();
+  } ;
   // $('.start').off('click').on('click', startClick);
 };
 
+var whoWon = function(){
+  var playerValue = getHandValue(playerHand);
+  var computerValue = getHandValue(computerHand);
+
+  if (playerValue > 21) {
+    alert("You Bust!");
+  } else if (computerValue > 21 ) {
+    playerWins();
+    alert("Dealer bust! You win!");
+  } else if ( playerValue > computerValue) {
+    playerWins();
+    alert("You WON!");
+  } else if (computerValue > playerValue) {
+    alert("You LOST!");
+  } else if (playerValue === computerValue) {
+    alert("It's a draw.");
+  }else if (playerValue === 21) {
+    playerWins();
+    alert("Black Jack!");
+  };
+  $('.start').off('click').on('click', startClick).text('Start');
+  $('.stay').toggle();
+  $('.player-value').text("");
+  $('.computer-value').text("");
+  playerHand = [];
+  computerHand = [];
+};
 $('.stay').on('click', function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
   // console.log("player value: ")
-
-  var whoWon = function(){
-    if ( playerValue > computerValue) {
-      alert("You WON!");
-    } else if (computerValue > playerValue) {
-      alert("You LOST!");
-    } else if (playerValue === computerValue) {
-      alert("It's a draw.");
-    };
-  };
 
   var dealersTurn = function(){
     if (computerValue >= 17) {
@@ -431,7 +468,7 @@ $('.stay').on('click', function(){
       $('.computer-value').append(" Total:" + computerValue);
       console.log(computerValue);
       if (computerValue>21) {
-        alert("Dealer bust! You win!");
+        whoWon();
       } else {
         dealersTurn();
         
