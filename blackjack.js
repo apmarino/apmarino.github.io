@@ -6,79 +6,79 @@ var newDeck ={
   "0": {
     "value": 2,
     "name": "2",
-    "suit": "spade",
+    "suit": "spades",
     "imgUrl": ""
   },
   "1": {
     "value": 3,
     "name": "3",
-    "suit": "spade",
+    "suit": "spades",
     "imgUrl": ""
   },
   "2": {
     "value": 4,
     "name": "4",
-    "suit": "spade",
+    "suit": "spades",
     "imgUrl": ""
   },
   "3": {
     "value": 5,
     "name": "5",
-    "suit": "spade",
+    "suit": "spades",
     "imgUrl": ""
   },
   "4": {
     "value": 6,
     "name": "6",
-    "suit": "spade",
+    "suit": "spades",
     "imgUrl": ""
   },
   "5": {
     "value": 7,
     "name": "7",
-    "suit": "spade",
+    "suit": "spades",
     "imgUrl": ""
   },
   "6": {
     "value": 8,
     "name": "8",
-    "suit": "spade",
+    "suit": "spades",
     "imgUrl": ""
   },
   "7": {
     "value": 9,
     "name": "9",
-    "suit": "spade",
+    "suit": "spades",
     "imgUrl": ""
   },
   "8": {
     "value": 10,
     "name": "10",
-    "suit": "spade",
+    "suit": "spades",
     "imgUrl": ""
   },
   "9": {
     "value": 10,
-    "name": "J",
-    "suit": "spade",
+    "name": "Jack",
+    "suit": "spades",
     "imgUrl": ""
   },
   "10": {
     "value": 10,
-    "name": "Q",
-    "suit": "spade",
+    "name": "Queen",
+    "suit": "spades",
     "imgUrl": ""
   },
   "11": {
     "value": 10,
-    "name": "K",
-    "suit": "spade",
+    "name": "King",
+    "suit": "spades",
     "imgUrl": ""
   },
   "12": {
     "value": 11,
-    "name": "A",
-    "suit": "spade",
+    "name": "Ace",
+    "suit": "spades",
     "imgUrl": ""
   },
   "13": {
@@ -137,25 +137,25 @@ var newDeck ={
   },
   "22": {
     "value": 10,
-    "name": "J",
+    "name": "Jack",
     "suit": "clubs",
     "imgUrl": ""
   },
   "23": {
     "value": 10,
-    "name": "Q",
+    "name": "Queen",
     "suit": "clubs",
     "imgUrl": ""
   },
   "24": {
     "value": 10,
-    "name": "K",
+    "name": "King",
     "suit": "clubs",
     "imgUrl": ""
   },
   "25": {
     "value": 11,
-    "name": "A",
+    "name": "Ace",
     "suit": "clubs",
     "imgUrl": ""
   },
@@ -215,25 +215,25 @@ var newDeck ={
   },
   "35": {
     "value": 10,
-    "name": "J",
+    "name": "Jack",
     "suit": "diamonds",
     "imgUrl": ""
   },
   "36": {
     "value": 10,
-    "name": "Q",
+    "name": "Queen",
     "suit": "diamonds",
     "imgUrl": ""
   },
   "37": {
     "value": 10,
-    "name": "K",
+    "name": "King",
     "suit": "diamonds",
     "imgUrl": ""
   },
   "38": {
     "value": 11,
-    "name": "A",
+    "name": "Ace",
     "suit": "diamonds",
     "imgUrl": ""
   },
@@ -293,25 +293,25 @@ var newDeck ={
   },
   "48": {
     "value": 10,
-    "name": "J",
+    "name": "Jack",
     "suit": "hearts",
     "imgUrl": ""
   },
   "49": {
     "value": 10,
-    "name": "Q",
+    "name": "Queen",
     "suit": "hearts",
     "imgUrl": ""
   },
   "50": {
     "value": 10,
-    "name": "K",
+    "name": "King",
     "suit": "hearts",
     "imgUrl": ""
   },
   "51": {
     "value": 11,
-    "name": "A",
+    "name": "Ace",
     "suit": "hearts",
     "imgUrl": ""
   },
@@ -348,6 +348,9 @@ $(document).ready(function(){
 var displayPlayerCards = function(element, index){
   $('.player-value').append(element.name + " of " + element.suit +", ");
 };
+var displayDealerCards = function(element, index){
+  $('.computer-value').append(element.name + " of " + element.suit +", ");
+}
 
 var startClick = function(){
   drawACard(playerHand);
@@ -361,8 +364,11 @@ var startClick = function(){
   var computerValue = getHandValue(computerHand);
  
   playerHand.forEach(displayPlayerCards);
+  $('.player-value').append(" Total:" + playerValue);
   // $('.player-value').text(playerValue);
-  $('.computer-value').text(computerValue);
+  computerHand.forEach(displayDealerCards);
+  $('.computer-value').append(" Total:" + computerValue);
+  // $('.computer-value').text(computerValue);
  
   $('.start').off('click').on('click', hitClick).text("hit");
   if (playerValue === 21) {
@@ -374,7 +380,9 @@ var hitClick = function(){
   drawACard(playerHand);
   var playerValue = getHandValue(playerHand);
   console.log(playerValue);
-  $('.player-value').text(playerValue);
+  $('.player-value').text("");
+  playerHand.forEach(displayPlayerCards);
+  $('.player-value').append(" Total:" + playerValue);
   if (playerValue > 21) {
     alert("BUST");
     return;
@@ -405,7 +413,9 @@ $('.stay').on('click', function(){
     } else{
       drawACard(computerHand);
       computerValue = getHandValue(computerHand);
-      $('.computer-value').text(computerValue);
+      $('.computer-value').text("");
+      computerHand.forEach(displayDealerCards);
+      $('.computer-value').append(" Total:" + computerValue);
       console.log(computerValue);
       if (computerValue>21) {
         alert("Dealer bust! You win!");
