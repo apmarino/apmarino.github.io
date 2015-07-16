@@ -383,6 +383,7 @@ var playerWins = function(){
  var $bankTotal = parseInt($('.bank').text());
  $('.bank').text($bankTotal + 2*$currentBet);
  $('.current-bet').text("");
+ $('.cCard0').attr("src", computerHand[0].imgUrl);
 };
 
 var itsADraw = function(){
@@ -390,11 +391,13 @@ var itsADraw = function(){
   var $bankTotal = parseInt($('.bank').text());
   $('.bank').text($bankTotal + $currentBet);
   $('.current-bet').text("");
+  $('.cCard0').attr("src", computerHand[0].imgUrl);
 };
 
 var dealerWins = function(){
   $('.current-bet').text("");
   console.log('dealer won');
+  $('.cCard0').attr("src", computerHand[0].imgUrl);
   if (parseInt($('.bank').text()) <= 0) {
   gameOver = true;
  };
@@ -422,11 +425,11 @@ var startClick = function(){
    $('.pCards').remove();
     playerHand.forEach(displayPlayerCards);
     $('.player-value').append(" Total:" + playerValue);
-    // $('.player-value').text(playerValue);
+
+    $('.cCards').remove();
     computerHand.forEach(displayDealerCards);
     $('.cCard0').attr("src", "cards/black_joker.png");
     $('.computer-value').append(" Total:" + computerValue);
-    // $('.computer-value').text(computerValue);
    
     $('.start').off('click').on('click', hitClick).text("hit");
   };
@@ -490,6 +493,7 @@ $('.stay').on('click', function(){
       drawACard(computerHand);
       computerValue = getHandValue(computerHand);
       $('.computer-value').text("");
+      $('.cCards').remove();
       computerHand.forEach(displayDealerCards);
       $('.computer-value').append(" Total:" + computerValue);
       console.log(computerValue);
