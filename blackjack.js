@@ -343,6 +343,12 @@ var getHandValue = function(array){ // array needs to be playerHand or computerH
   for(var i = 0; i<array.length; i++){
     total += array[i].value;
   };
+
+  for (var i = 0; i<playerHand.length; i++){
+    if (playerHand[i].name === "Ace" && total > 21) {
+      total -= 10;
+    } else {};
+  };
   return total;
 };
 
@@ -373,7 +379,10 @@ var playerWins = function(){
   gameOver = true;
  };
 };
-
+var itsADraw = function(){
+  var $currentBet = parseInt($('.current-bet').text());
+  
+}
 var dealerWins = function(){
   $('.current-bet').text("");
   console.log('dealer won');
@@ -430,6 +439,7 @@ var whoWon = function(){
   var computerValue = getHandValue(computerHand);
 
   if (playerValue > 21) {
+    dealerWins();
     alert("You Bust!");
   } else if (computerValue > 21 ) {
     playerWins();
@@ -438,6 +448,7 @@ var whoWon = function(){
     playerWins();
     alert("You WON!");
   } else if (computerValue > playerValue) {
+    dealerWins();
     alert("You LOST!");
   } else if (playerValue === computerValue) {
     alert("It's a draw.");
