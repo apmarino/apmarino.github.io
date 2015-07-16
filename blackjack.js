@@ -375,18 +375,22 @@ var playerWins = function(){
  var $bankTotal = parseInt($('.bank').text());
  $('.bank').text($bankTotal + 2*$currentBet);
  $('.current-bet').text("");
- if (parseInt($('.bank').text()) <= 0) {
-  gameOver = true;
- };
 };
+
 var itsADraw = function(){
   var $currentBet = parseInt($('.current-bet').text());
-  
-}
+  var $bankTotal = parseInt($('.bank').text());
+  $('.bank').text($bankTotal + $currentBet);
+  $('.current-bet').text("");
+};
+
 var dealerWins = function(){
   $('.current-bet').text("");
   console.log('dealer won');
-}
+  if (parseInt($('.bank').text()) <= 0) {
+  gameOver = true;
+ };
+};
 
 var newDeal = function(){
   cardsAlreadyDrawn = [];
@@ -451,6 +455,7 @@ var whoWon = function(){
     dealerWins();
     alert("You LOST!");
   } else if (playerValue === computerValue) {
+    itsADraw();
     alert("It's a draw.");
   }else if (playerValue === 21) {
     playerWins();
