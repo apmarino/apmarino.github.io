@@ -327,6 +327,9 @@ var drawACard = function (array){ //this function needs an empty array arg to pu
   if (cardsAlreadyDrawn.indexOf(randomNum) === -1) { //prevents drawing same card
     array.push(newDeck[randomNum.toString()]);
     cardsAlreadyDrawn.push(randomNum);
+  } else if (cardsAlreadyDrawn.length === 52) {
+    cardsAlreadyDrawn = [];
+    drawACard(array);
   } else{
     var newRandomNum = Math.floor(Math.random() * 52);
     array.push(newDeck[newRandomNum.toString()]);
@@ -350,7 +353,17 @@ var displayPlayerCards = function(element, index){
 };
 var displayDealerCards = function(element, index){
   $('.computer-value').append(element.name + " of " + element.suit +", ");
-}
+};
+
+$('.bet').on('click', function(){
+  var bankTotal = parseInt($('.bank').text());
+  var bet = parseInt($('.input-bet').val());
+  console.log("bankTtotal: ", bankTotal, "bet: ", bet)
+  $('.bank').text(bankTotal - bet);
+  $('.current-bet').text(bet)
+});
+
+
 
 var startClick = function(){
   drawACard(playerHand);
