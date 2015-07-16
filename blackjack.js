@@ -345,7 +345,9 @@ var getHandValue = function(array){ // array needs to be playerHand or computerH
 
 $(document).ready(function(){
 
-
+var displayPlayerCards = function(element, index){
+  $('.player-value').append(element.name + " of " + element.suit +", ");
+};
 
 var startClick = function(){
   drawACard(playerHand);
@@ -358,7 +360,8 @@ var startClick = function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
  
-  $('.player-value').text(playerValue);
+  playerHand.forEach(displayPlayerCards);
+  // $('.player-value').text(playerValue);
   $('.computer-value').text(computerValue);
  
   $('.start').off('click').on('click', hitClick).text("hit");
@@ -394,19 +397,29 @@ $('.stay').on('click', function(){
     } else if (playerValue === computerValue) {
       alert("It's a draw.");
     };
-
   };
 
   var dealersTurn = function(){
     if (computerValue >= 17) {
-
-    };
-
-    
+      whoWon();
+    } else{
+      drawACard(computerHand);
+      computerValue = getHandValue(computerHand);
+      $('.computer-value').text(computerValue);
+      console.log(computerValue);
+      if (computerValue>21) {
+        alert("Dealer bust! You win!");
+      } else {
+        dealersTurn();
+        
+        };
+    }
   };
+  
+  dealersTurn();
 })
 
-  $(".start").on('click', startClick);
+$(".start").on('click', startClick);
 
 
 })
