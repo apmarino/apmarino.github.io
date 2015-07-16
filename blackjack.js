@@ -419,7 +419,7 @@ var startClick = function(){
     
     var playerValue = getHandValue(playerHand);
     var computerValue = getHandValue(computerHand);
-   
+   $('.pCards').remove();
     playerHand.forEach(displayPlayerCards);
     $('.player-value').append(" Total:" + playerValue);
     // $('.player-value').text(playerValue);
@@ -437,6 +437,7 @@ var hitClick = function(){
   var playerValue = getHandValue(playerHand);
   console.log(playerValue);
   $('.player-value').text("");
+  $('.pCards').remove();
   playerHand.forEach(displayPlayerCards);
   $('.player-value').append(" Total:" + playerValue);
   if (playerValue > 21) {
