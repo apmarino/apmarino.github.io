@@ -432,7 +432,6 @@ var doubledown = function(){
   drawACard(playerHand);
   $('.pCards').remove();
   playerHand.forEach(displayPlayerCards);
-  playerHand.forEach(displayPlayerCards);
   var $currentBet = parseInt($('.current-bet').text());
   var $bankTotal = parseInt($('.bank').text());
   $('.current-bet').text(2*$currentBet);
@@ -492,15 +491,16 @@ var whoWon = function(){
   } else if ( computerValue > 21) {
     $('.middle').append("<h5>DEALER BUST</h5>");
     playerWins();
+  } else if (playerValue === 21) {
+    blackJack();
   } else if ( playerValue > computerValue) {
     playerWins();
   } else if (computerValue > playerValue) {
     dealerWins();
   } else if (playerValue === computerValue) {
     itsADraw();
-  }else if (playerValue === 21) {
-    blackJack();
   };
+
   $('.start').off('click').on('click', startClick).text('Deal');
   $('.stay').toggle();
   $('.doubledown').hide();
@@ -519,12 +519,11 @@ var dealersTurn = function(){
     $('.cCards').remove();
     computerHand.forEach(displayDealerCards);
     // $('.computer-value').append(" Total:" + computerValue);
-    console.log(computerValue);
-    if (computerValue>21) {
+    console.log("computer value:", computerValue);
+    if (computerValue>=17) {
       whoWon();
     } else {
-      dealersTurn();
-      
+        dealersTurn();    
       };
   }
 };
