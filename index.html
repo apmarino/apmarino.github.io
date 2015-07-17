@@ -5,27 +5,34 @@
   <title>BlackJack</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script  src = "blackjack.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
   <link rel="stylesheet" href="blackjack.css">
 </head>
 <body>
-  <h1>BlackJack!</h1>
-  <div class="player-hand">
-    Player Hand:
+  <div class="container">
+    <h1>BlackJack!</h1>
+    <div class="row">
+      <div class="computer-hand">
+        Dealer Hand:
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="player-hand">
+        Player Hand:
+        <br>
+      </div>
+    </div>
+<!--     <h3 class="player-value"></h3>
+    <h3 class="computer-value"></h3> -->
     <br>
-  </div>
-  <div class="computer-hand">
-    Dealer Hand:
+    <button class="start">Deal</button>
+    <button class="stay">Stay</button>
     <br>
+    <input type="text" placeholder="Place Your Bet" class="input-bet">
+    <button class="bet">Bet</button>
+    <h2>Current Bet: $<span class="current-bet"></span> </h4>
+    <h2>Bank: $<span class="bank">1000</span></h2>
   </div>
-  <h3 class="player-value"></h3>
-  <h3 class="computer-value"></h3>
-  <br>
-  <button class="start">Deal</button>
-  <button class="stay">Stay</button>
-  <br>
-  <input type="text" placeholder="Place Your Bet" class="input-bet">
-  <button class="bet">Bet</button>
-  <h4 >Current Bet: $<span class="current-bet"></span> </h4>
-  <h2>Bank: $<span class="bank">1000</span></h2>
 </body>
 </html>
