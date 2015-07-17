@@ -388,7 +388,17 @@ var playerWins = function(){
  $('.bank').text($bankTotal + 2*$currentBet);
  $('.current-bet').text("");
  $('.cCard0').attr("src", computerHand[0].imgUrl);
+ $('.middle').append("<h5>YOU WIN</h5>");
 };
+
+var blackJack = function(){
+ var $currentBet = parseInt($('.current-bet').text());
+ var $bankTotal = parseInt($('.bank').text());
+ $('.bank').text($bankTotal + 2*$currentBet);
+ $('.current-bet').text("");
+ $('.cCard0').attr("src", computerHand[0].imgUrl);
+ $('.middle').append("<h5>BLACKJACK\!</h5>");
+}
 
 var itsADraw = function(){
   var $currentBet = parseInt($('.current-bet').text());
@@ -396,6 +406,7 @@ var itsADraw = function(){
   $('.bank').text($bankTotal + $currentBet);
   $('.current-bet').text("");
   $('.cCard0').attr("src", computerHand[0].imgUrl);
+  $('.middle').append("<h5>PUSH</h5>");
 };
 
 var dealerWins = function(){
@@ -405,6 +416,7 @@ var dealerWins = function(){
   if (parseInt($('.bank').text()) <= 0) {
   gameOver = true;
  };
+ $('.middle').append("<h5>DEALER WINS</h5>");
 };
 
 var newDeal = function(){
@@ -415,18 +427,32 @@ var newDeal = function(){
   drawACard(computerHand);
 };
 
+var doubledown = function(){
+
+  drawACard(playerHand);
+  $('.pCards').remove();
+  playerHand.forEach(displayPlayerCards);
+  playerHand.forEach(displayPlayerCards);
+  var $currentBet = parseInt($('.current-bet').text());
+  var $bankTotal = parseInt($('.bank').text());
+  $('.current-bet').text(2*$currentBet);
+  $('.bank').text($bankTotal - $currentBet);
+
+  dealersTurn();
+};
+
 var startClick = function(){
   if ($('.current-bet').text().length <= 0 || typeof(parseInt($('.current-bet').text())) !== "number") {
     alert("Input a number!");
   } else{
-  
+    $('.middle').html("");
     newDeal();
     //drawing cards for plater and computer
     $('.stay').toggle();
     
     var playerValue = getHandValue(playerHand);
     var computerValue = getHandValue(computerHand);
-   $('.pCards').remove();
+    $('.pCards').remove();
     playerHand.forEach(displayPlayerCards);
     // $('.player-value').append(" Total:" + playerValue);
 
@@ -436,6 +462,9 @@ var startClick = function(){
     // $('.computer-value').append(" Total:" + computerValue);
    
     $('.start').off('click').on('click', hitClick).text("hit");
+
+    $('.doubledown').show();
+    $('.doubledown').on('click', doubledown);    
   };
 };
   
@@ -447,11 +476,7 @@ var hitClick = function(){
   $('.pCards').remove();
   playerHand.forEach(displayPlayerCards);
   // $('.player-value').append(" Total:" + playerValue);
-  if (playerValue > 21) {
-    whoWon();
-  } else if (playerValue === 21) {
-    whoWon();
-  } ;
+
   // $('.start').off('click').on('click', startClick);
 };
 
@@ -459,61 +484,59 @@ var whoWon = function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
 
-  if (playerValue > 21) {
+  if (playerValue > 21 && computerValue > 21) {
+    itsADraw();
+  } else if (playerValue > 21) {
+    $('.middle').append("<h5>YOU BUST</h5>");
     dealerWins();
-    alert("You Bust!");
-  } else if (computerValue > 21 ) {
+  } else if ( computerValue > 21) {
+    $('.middle').append("<h5>DEALER BUST</h5>");
     playerWins();
-    alert("Dealer bust! You win!");
   } else if ( playerValue > computerValue) {
     playerWins();
-    alert("You WON!");
   } else if (computerValue > playerValue) {
     dealerWins();
-    alert("You LOST!");
   } else if (playerValue === computerValue) {
     itsADraw();
-    alert("It's a draw.");
   }else if (playerValue === 21) {
-    playerWins();
-    alert("Black Jack!");
+    blackJack();
   };
   $('.start').off('click').on('click', startClick).text('Deal');
   $('.stay').toggle();
-  $('.player-value').text("");
-  $('.computer-value').text("");
+  $('.doubledown').hide();
   playerHand = [];
   computerHand = [];
 };
+var dealersTurn = function(){
+  var playerValue = getHandValue(playerHand);
+  var computerValue = getHandValue(computerHand);
+  if (computerValue >= 17) {
+    whoWon();
+  } else{
+    drawACard(computerHand);
+    computerValue = getHandValue(computerHand);
+    // $('.computer-value').text("");
+    $('.cCards').remove();
+    computerHand.forEach(displayDealerCards);
+    // $('.computer-value').append(" Total:" + computerValue);
+    console.log(computerValue);
+    if (computerValue>21) {
+      whoWon();
+    } else {
+      dealersTurn();
+      
+      };
+  }
+};
+
 $('.stay').on('click', function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
-  // console.log("player value: ")
-
-  var dealersTurn = function(){
-    if (computerValue >= 17) {
-      whoWon();
-    } else{
-      drawACard(computerHand);
-      computerValue = getHandValue(computerHand);
-      // $('.computer-value').text("");
-      $('.cCards').remove();
-      computerHand.forEach(displayDealerCards);
-      // $('.computer-value').append(" Total:" + computerValue);
-      console.log(computerValue);
-      if (computerValue>21) {
-        whoWon();
-      } else {
-        dealersTurn();
-        
-        };
-    }
-  };
-  
+  // console.log("player value: ");
   dealersTurn();
 })
 
-$(".start").on('click', startClick);
+  $(".start").on('click', startClick);
 
 
 })

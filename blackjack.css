@@ -9,6 +9,9 @@ h1{
 .stay{
   display: none;
 }
+.doubledown{
+  display: none;
+}
 .pCards{
   height: 180px;
   width: 125px;
@@ -23,8 +26,19 @@ h1{
   margin-right: auto;
   text-align: center;
 }
+.middle{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.second {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; 
+}
 
 button{
+  color: black;
   background-color: #c79316;
   text-align: left;
 }
