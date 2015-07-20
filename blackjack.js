@@ -389,6 +389,7 @@ var playerWins = function(){
  $('.current-bet').text("");
  $('.cCard0').attr("src", computerHand[0].imgUrl);
  $('.middle').append("<h5>YOU WIN</h5>");
+ debugger;
 };
 
 var blackJack = function(){
@@ -398,11 +399,13 @@ var blackJack = function(){
  $('.current-bet').text("");
  $('.cCard0').attr("src", computerHand[0].imgUrl);
  $('.middle').append("<h5>BLACKJACK\!</h5>");
+ debugger;
 }
 
 var itsADraw = function(){
   var $currentBet = parseInt($('.current-bet').text());
   var $bankTotal = parseInt($('.bank').text());
+  debugger;
   $('.bank').text($bankTotal + $currentBet);
   $('.current-bet').text("");
   $('.cCard0').attr("src", computerHand[0].imgUrl);
@@ -417,6 +420,7 @@ var dealerWins = function(){
   gameOver = true;
  };
  $('.middle').append("<h5>DEALER WINS</h5>");
+ debugger;
 };
 
 var newDeal = function(){
@@ -436,7 +440,7 @@ var doubledown = function(){
   var $bankTotal = parseInt($('.bank').text());
   $('.current-bet').text(2*$currentBet);
   $('.bank').text($bankTotal - $currentBet);
-
+  debugger;
   dealersTurn();
 };
 
@@ -482,23 +486,30 @@ var hitClick = function(){
 var whoWon = function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
-
+  debugger;
   if (playerValue > 21 && computerValue > 21) {
+    debugger;
     itsADraw();
   } else if (playerValue > 21) {
     $('.middle').append("<h5>YOU BUST</h5>");
     dealerWins();
+    debugger;
   } else if ( computerValue > 21) {
     $('.middle').append("<h5>DEALER BUST</h5>");
     playerWins();
+    debugger;
   } else if (playerValue === 21) {
     blackJack();
+    debugger;
   } else if ( playerValue > computerValue) {
     playerWins();
+    debugger;
   } else if (computerValue > playerValue) {
     dealerWins();
+    debugger;
   } else if (playerValue === computerValue) {
     itsADraw();
+    debugger;
   };
 
   $('.start').off('click').on('click', startClick).text('Deal');
@@ -512,6 +523,7 @@ var dealersTurn = function(){
   var computerValue = getHandValue(computerHand);
   if (computerValue >= 17) {
     whoWon();
+    debugger;
   } else{
     drawACard(computerHand);
     computerValue = getHandValue(computerHand);
@@ -521,8 +533,10 @@ var dealersTurn = function(){
     // $('.computer-value').append(" Total:" + computerValue);
     console.log("computer value:", computerValue);
     if (computerValue>=17) {
+      debugger;
       whoWon();
     } else {
+      debugger;
         dealersTurn();    
       };
   }
