@@ -1,5 +1,5 @@
 
-console.log("LINKED UP!")
+console.log("LINKED UP!");
 
 var newDeck ={
 
@@ -352,9 +352,6 @@ var getHandValue = function(array){ // array needs to be playerHand or computerH
   return total;
 };
 
-
-$(document).ready(function(){
-
 var displayPlayerCards = function(element, index){
   var $img = $('<img>');
   $img.attr("src", element.imgUrl);
@@ -369,19 +366,6 @@ var displayDealerCards = function(element, index){
   $('.computer-hand').append($img);
   // $('.computer-value').append(element.name + " of " + element.suit +", ");
 };
-
-$('.bet').on('click', function(){
-  var bankTotal = parseInt($('.bank').text());
-  var bet = parseInt($('.input-bet').val());
-  if (bet > bankTotal) {
-    alert("Your bet must be lower than your Bank.");
-  } else{
-  console.log("bankTotal: ", bankTotal, "bet: ", bet)
-  $('.bank').text(bankTotal - bet);
-  $('.current-bet').text(bet);
-  };
-});
-
 var playerWins = function(){
  var $currentBet = parseInt($('.current-bet').text());
  var $bankTotal = parseInt($('.bank').text());
@@ -391,7 +375,6 @@ var playerWins = function(){
  $('.middle').append("<h5>YOU WIN</h5>");
  debugger;
 };
-
 var blackJack = function(){
  var $currentBet = parseInt($('.current-bet').text());
  var $bankTotal = parseInt($('.bank').text());
@@ -400,8 +383,7 @@ var blackJack = function(){
  $('.cCard0').attr("src", computerHand[0].imgUrl);
  $('.middle').append("<h5>BLACKJACK\!</h5>");
  debugger;
-}
-
+};
 var itsADraw = function(){
   var $currentBet = parseInt($('.current-bet').text());
   var $bankTotal = parseInt($('.bank').text());
@@ -542,17 +524,38 @@ var dealersTurn = function(){
   }
 };
 
+$(document).ready(function(){
+
+
+$('.bet').on('click', function(){
+  var bankTotal = parseInt($('.bank').text());
+  var bet = parseInt($('.input-bet').val());
+  if (bet > bankTotal) {
+    alert("Your bet must be lower than your Bank.");
+  } else{
+  $('.bank').text(bankTotal - bet);
+  $('.current-bet').text(bet);
+  console.log("bankTotal: ", bankTotal, "bet: ", bet)
+  };
+});
+
+
+
 $('.stay').on('click', function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
   // console.log("player value: ");
   dealersTurn();
-})
+});
 
-  $(".start").on('click', startClick);
+$(".start").on('click', startClick);
+$(".modal-button").on('click', function(){
+  window.location.reload()
+});
+
+});
 
 
-})
 
 
 
