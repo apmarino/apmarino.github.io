@@ -550,7 +550,8 @@ $('.stay').on('click', function(){
 
 $(".start").on('click', startClick);
 $(".modal-button").on('click', function(){
-  window.location.reload()
+  window.location.reload();
+  console.log("modal clicked");
 });
 
 });
