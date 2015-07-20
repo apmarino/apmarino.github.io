@@ -400,6 +400,7 @@ var dealerWins = function(){
   $('.cCard0').attr("src", computerHand[0].imgUrl);
   if (parseInt($('.bank').text()) <= 0) {
   gameOver = true;
+  $('#modal').show();
  };
  $('.middle').append("<h5>DEALER WINS</h5>");
  debugger;
@@ -503,6 +504,7 @@ var whoWon = function(){
 var dealersTurn = function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
+  debugger;
   if (computerValue >= 17) {
     whoWon();
     debugger;
@@ -514,6 +516,7 @@ var dealersTurn = function(){
     computerHand.forEach(displayDealerCards);
     // $('.computer-value').append(" Total:" + computerValue);
     console.log("computer value:", computerValue);
+    debugger;
     if (computerValue>=17) {
       debugger;
       whoWon();

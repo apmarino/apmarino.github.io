@@ -1,6 +1,7 @@
 body{
   color: white;
   background-color: black;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 h1{
@@ -28,6 +29,8 @@ button{
   top: 150px;
   width: 40%;
   text-align: center;
+  border: 2px solid;
+  border-radius: 25px;
 }
 .modal-button{
   background-color: grey;
@@ -66,6 +69,7 @@ button{
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 .second {
   margin-left: auto;
