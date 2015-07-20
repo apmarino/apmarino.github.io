@@ -355,7 +355,7 @@ var getHandValue = function(array){ // array needs to be playerHand or computerH
 var displayPlayerCards = function(element, index){
   var $img = $('<img>');
   $img.attr("src", element.imgUrl);
-  $img.addClass("animated slideInRight");
+  $img.addClass("animated flipInY");
   $('.player-hand').append($img);
   $img.addClass("pCards pCard"+index);
 
@@ -363,7 +363,7 @@ var displayPlayerCards = function(element, index){
 var displayDealerCards = function(element, index){
   var $img = $('<img>');
   $img.attr("src", element.imgUrl);
-  $img.addClass("animated slideInRight");
+  $img.addClass("animated flipInY");
   $img.addClass("cCards cCard"+index);
   $('.computer-hand').append($img);
 

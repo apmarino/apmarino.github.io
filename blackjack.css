@@ -50,11 +50,11 @@ button{
 }
 
 .player-hand{
-  height: 200px;
+  height: 180px;
   /*width: 135px;*/
 }
 .computer-hand{
-  height: 200px;
+  height: 180px;
 }
 .cCards{
  height: 180px;
