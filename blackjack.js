@@ -462,7 +462,7 @@ var hitClick = function(){
   $('.pCards').remove();
   playerHand.forEach(displayPlayerCards);
 
-
+  $('.doubledown').hide();  
 };
 
 var whoWon = function(){
