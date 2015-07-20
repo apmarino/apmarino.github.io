@@ -355,16 +355,18 @@ var getHandValue = function(array){ // array needs to be playerHand or computerH
 var displayPlayerCards = function(element, index){
   var $img = $('<img>');
   $img.attr("src", element.imgUrl);
-  $img.addClass("pCards pCard"+index);
+  $img.addClass("animated slideInRight");
   $('.player-hand').append($img);
-  // $('.player-value').append(element.name + " of " + element.suit +", ");
+  $img.addClass("pCards pCard"+index);
+
 };
 var displayDealerCards = function(element, index){
   var $img = $('<img>');
   $img.attr("src", element.imgUrl);
+  $img.addClass("animated slideInRight");
   $img.addClass("cCards cCard"+index);
   $('.computer-hand').append($img);
-  // $('.computer-value').append(element.name + " of " + element.suit +", ");
+
 };
 var playerWins = function(){
  var $currentBet = parseInt($('.current-bet').text());
@@ -429,7 +431,7 @@ var doubledown = function(){
 
 var startClick = function(){
   if ($('.current-bet').text().length <= 0 || typeof(parseInt($('.current-bet').text())) !== "number") {
-    alert("Input a number!");
+    alert("Place your bet!");
   } else{
     $('.middle').html("");
     newDeal();
@@ -440,12 +442,10 @@ var startClick = function(){
     var computerValue = getHandValue(computerHand);
     $('.pCards').remove();
     playerHand.forEach(displayPlayerCards);
-    // $('.player-value').append(" Total:" + playerValue);
 
     $('.cCards').remove();
     computerHand.forEach(displayDealerCards);
     $('.cCard0').attr("src", "cards/black_joker.png");
-    // $('.computer-value').append(" Total:" + computerValue);
    
     $('.start').off('click').on('click', hitClick).text("hit");
 
@@ -458,12 +458,11 @@ var hitClick = function(){
   drawACard(playerHand);
   var playerValue = getHandValue(playerHand);
   console.log(playerValue);
-  // $('.player-value').text("");
+
   $('.pCards').remove();
   playerHand.forEach(displayPlayerCards);
-  // $('.player-value').append(" Total:" + playerValue);
 
-  // $('.start').off('click').on('click', startClick);
+
 };
 
 var whoWon = function(){
@@ -475,24 +474,24 @@ var whoWon = function(){
     itsADraw();
   } else if (playerValue > 21) {
     $('.middle').append("<h5>YOU BUST</h5>");
-    dealerWins();
     debugger;
+    dealerWins();
   } else if ( computerValue > 21) {
     $('.middle').append("<h5>DEALER BUST</h5>");
-    playerWins();
     debugger;
-  } else if (playerValue === 21) {
+    playerWins();
+  } else if (playerValue === 21 && playerHand.length === 2) {
+    debugger;
     blackJack();
-    debugger;
   } else if ( playerValue > computerValue) {
+    debugger;
     playerWins();
-    debugger;
   } else if (computerValue > playerValue) {
+    debugger;
     dealerWins();
-    debugger;
   } else if (playerValue === computerValue) {
-    itsADraw();
     debugger;
+    itsADraw();
   };
 
   $('.start').off('click').on('click', startClick).text('Deal');
@@ -511,10 +510,10 @@ var dealersTurn = function(){
   } else{
     drawACard(computerHand);
     computerValue = getHandValue(computerHand);
-    // $('.computer-value').text("");
+
     $('.cCards').remove();
     computerHand.forEach(displayDealerCards);
-    // $('.computer-value').append(" Total:" + computerValue);
+
     console.log("computer value:", computerValue);
     debugger;
     if (computerValue>=17) {
@@ -538,7 +537,7 @@ $('.bet').on('click', function(){
   } else{
   $('.bank').text(bankTotal - bet);
   $('.current-bet').text(bet);
-  console.log("bankTotal: ", bankTotal, "bet: ", bet)
+  console.log("bankTotal: ", bankTotal, "bet: ", bet);
   };
 });
 
@@ -547,11 +546,11 @@ $('.bet').on('click', function(){
 $('.stay').on('click', function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
-  // console.log("player value: ");
   dealersTurn();
 });
 
 $(".start").on('click', startClick);
+
 $(".modal-button").on('click', function(){
   window.location.reload();
   console.log("modal clicked");
