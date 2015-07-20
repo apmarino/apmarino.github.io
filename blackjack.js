@@ -450,7 +450,7 @@ var startClick = function(){
     $('.start').off('click').on('click', hitClick).text("hit");
 
     $('.doubledown').show();
-    $('.doubledown').on('click', doubledown);    
+    $('.doubledown').unbind("click").click(doubledown);    
   };
 };
   
