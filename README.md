@@ -2,7 +2,7 @@
 
 This is an extremely simple blackjack game.
 
-Type in a number to the input box, click 'bet', then deal.
+Type in a number to the input box, click 'bet', then click 'deal'.
 
 You now have three options: Hit, Stand, and Doubledown.
 
