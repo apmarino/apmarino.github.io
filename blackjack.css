@@ -16,6 +16,13 @@ h1{
   height: 180px;
   width: 125px;
 }
+.player-hand{
+  height: 200px;
+  /*width: 135px;*/
+}
+.computer-hand{
+  height: 200px;
+}
 .cCards{
  height: 180px;
  width: 125px; 
@@ -25,6 +32,7 @@ h1{
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  font-size: 2.5em;
 }
 .middle{
   margin-left: auto;
@@ -35,10 +43,15 @@ h1{
   margin-left: auto;
   margin-right: auto;
   text-align: center; 
+  font-size: 2.5em;
+}
+
+.third {
+  margin-top: 100px;
 }
 
 button{
   color: black;
-  background-color: #c79316;
-  text-align: left;
+  background-color: #006B24;
+  text-align: center;
 }
