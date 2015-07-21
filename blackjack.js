@@ -324,7 +324,7 @@ var gameOver = false;
 
 var drawACard = function (array){ //this function needs an empty array arg to push to(player hand and computer hand)
   var randomNum = Math.floor(Math.random() * 52);
-  // debugger;
+  // 
   if (cardsAlreadyDrawn.indexOf(randomNum) === -1) { //prevents drawing same card
     array.push(newDeck[randomNum.toString()]);
     cardsAlreadyDrawn.push(randomNum);
@@ -344,8 +344,8 @@ var getHandValue = function(array){ // array needs to be playerHand or computerH
     total += array[i].value;
   };
 
-  for (var i = 0; i<playerHand.length; i++){
-    if (playerHand[i].name === "Ace" && total > 21) {
+  for (var i = 0; i<array.length; i++){
+    if (array[i].name === "Ace" && total > 21) {
       total -= 10;
     } else {};
   };
@@ -375,7 +375,7 @@ var playerWins = function(){
  $('.current-bet').text("");
  $('.cCard0').attr("src", computerHand[0].imgUrl);
  $('.middle').append("<h5>YOU WIN</h5>");
- debugger;
+ 
 };
 var blackJack = function(){
  var $currentBet = parseInt($('.current-bet').text());
@@ -384,12 +384,12 @@ var blackJack = function(){
  $('.current-bet').text("");
  $('.cCard0').attr("src", computerHand[0].imgUrl);
  $('.middle').append("<h5>BLACKJACK\!</h5>");
- debugger;
+ 
 };
 var itsADraw = function(){
   var $currentBet = parseInt($('.current-bet').text());
   var $bankTotal = parseInt($('.bank').text());
-  debugger;
+  
   $('.bank').text($bankTotal + $currentBet);
   $('.current-bet').text("");
   $('.cCard0').attr("src", computerHand[0].imgUrl);
@@ -405,7 +405,7 @@ var dealerWins = function(){
   $('#modal').show();
  };
  $('.middle').append("<h5>DEALER WINS</h5>");
- debugger;
+ 
 };
 
 var newDeal = function(){
@@ -425,7 +425,7 @@ var doubledown = function(){
   var $bankTotal = parseInt($('.bank').text());
   $('.current-bet').text(2*$currentBet);
   $('.bank').text($bankTotal - $currentBet);
-  debugger;
+  
   dealersTurn();
 };
 
@@ -468,29 +468,29 @@ var hitClick = function(){
 var whoWon = function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
-  debugger;
+  
   if (playerValue > 21 && computerValue > 21) {
-    debugger;
+    
     itsADraw();
   } else if (playerValue > 21) {
     $('.middle').append("<h5>YOU BUST</h5>");
-    debugger;
+    
     dealerWins();
   } else if ( computerValue > 21) {
     $('.middle').append("<h5>DEALER BUST</h5>");
-    debugger;
+    
     playerWins();
   } else if (playerValue === 21 && playerHand.length === 2) {
-    debugger;
+    
     blackJack();
   } else if ( playerValue > computerValue) {
-    debugger;
+    
     playerWins();
   } else if (computerValue > playerValue) {
-    debugger;
+    
     dealerWins();
   } else if (playerValue === computerValue) {
-    debugger;
+    
     itsADraw();
   };
 
@@ -503,10 +503,10 @@ var whoWon = function(){
 var dealersTurn = function(){
   var playerValue = getHandValue(playerHand);
   var computerValue = getHandValue(computerHand);
-  debugger;
+  
   if (computerValue >= 17) {
     whoWon();
-    debugger;
+    
   } else{
     drawACard(computerHand);
     computerValue = getHandValue(computerHand);
@@ -515,12 +515,12 @@ var dealersTurn = function(){
     computerHand.forEach(displayDealerCards);
 
     console.log("computer value:", computerValue);
-    debugger;
+    
     if (computerValue>=17) {
-      debugger;
+      
       whoWon();
     } else {
-      debugger;
+      
         dealersTurn();    
       };
   }
