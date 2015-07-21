@@ -380,7 +380,7 @@ var playerWins = function(){
 var blackJack = function(){
  var $currentBet = parseInt($('.current-bet').text());
  var $bankTotal = parseInt($('.bank').text());
- $('.bank').text($bankTotal + 2*$currentBet);
+ $('.bank').text($bankTotal + 2.5*$currentBet);
  $('.current-bet').text("");
  $('.cCard0').attr("src", computerHand[0].imgUrl);
  $('.middle').append("<h5>BLACKJACK\!</h5>");
